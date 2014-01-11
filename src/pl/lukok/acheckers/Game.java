@@ -2,16 +2,12 @@ package pl.lukok.acheckers;
 
 import android.graphics.Point;
 import android.graphics.PointF;
-import android.util.Log;
 import pl.lukok.acheckers.board.CBoard;
 import pl.lukok.acheckers.board.CBoardUtils;
 import pl.lukok.acheckers.board.CField;
 import pl.lukok.acheckers.board.CMove;
-import pl.lukok.acheckers.entities.Draught;
 import pl.lukok.acheckers.entities.Entity;
 import pl.lukok.acheckers.entities.EntityFactory;
-
-import java.util.LinkedList;
 
 /**
  * Created by lukasz on 12/31/13.
@@ -67,16 +63,6 @@ public class Game {
                 setDraught(playerWhite, getBoard().getField(i, 7));
             }
         }
-
-//        this.setDraught(playerWhite, this.getBoard().getField(1, 6));
-//        this.setQueen(this.getBoard().getField(1, 6));
-//
-//        this.setDraught(playerWhite, this.getBoard().getField(5, 6));
-//        this.setDraught(playerWhite, this.getBoard().getField(5, 4));
-//
-//
-//        this.setDraught(playerBlack, this.getBoard().getField(5, 2));
-//        this.setDraught(playerBlack, this.getBoard().getField(4, 5));
     }
 
     protected void removeEntity(Entity captured) {
@@ -113,12 +99,8 @@ public class Game {
 
         CMove move = entity.getMove(boardPosition);
 
-        Log.d("MOVE ENTITY TO: ", boardPosition.x+", "+boardPosition.y);
-
         if (move != null) {
-            Log.d("MOVE ENTITY IS NOT NULL", " ");
             if (entity.setMove(move)) {
-                Log.d("MOVE ENTITY TO NEW POSITION AND UPDATE BOARD", " ");
                 getBoard().move(entity, boardPosition);
                 return true;
             }
@@ -150,14 +132,11 @@ public class Game {
     public void placeActiveEntity(Point position) {
         if (getCurrentPlayer().hasActiveEntity()) {
             if (!move(getCurrentPlayer().getActiveEntity(), position)) {
-Log.d("Game::placeActiveEntity cannot go to", position.x +", "+position.y);
                 CField field = getBoard().searchField(getCurrentPlayer().getActiveEntity());
                 if (field != null) {
-Log.d("Game::placeActiveEntity move back to", field.getX() +", "+field.getY());
                     PointF moveBack = CBoardUtils.convertBoardToWorldPosition(field.getX(), field.getY());
                     getCurrentPlayer().getActiveEntity().move(moveBack);
                 }
- //               getCurrentPlayer().unselectActiveEntity();
             }
         }
     }
@@ -167,10 +146,10 @@ Log.d("Game::placeActiveEntity move back to", field.getX() +", "+field.getY());
         getCurrentPlayer().finishedTurn();
         rebuildEntityPositions();
 
-        if (this.getCurrentPlayer() == this.playerWhite) {
-            this.setCurrentPlayer(this.playerBlack);
+        if (getCurrentPlayer() == getPlayerWhite()) {
+            setCurrentPlayer(getPlayerBlack());
         } else {
-            this.setCurrentPlayer(this.playerWhite);
+            setCurrentPlayer(getPlayerWhite());
         }
 
         getCurrentPlayer().startTurn();
