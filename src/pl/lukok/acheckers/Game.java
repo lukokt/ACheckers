@@ -32,8 +32,8 @@ public class Game {
 
     public void startNewGame() {
 
-        this.playerWhite = new Player(Player.TYPE_WHITE);
-        this.playerBlack = new Player(Player.TYPE_BLACK);
+        this.playerWhite = new Player(Player.TYPE_WHITE, "Łukasz");
+        this.playerBlack = new Player(Player.TYPE_BLACK, "Imi");
         this.current = playerWhite;
 
         this.initBoard();
@@ -164,7 +164,7 @@ Log.d("Game::placeActiveEntity move back to", field.getX() +", "+field.getY());
 
     synchronized public void switchCurrentPlayer() {
 
-        getCurrentPlayer().switchTurn();
+        getCurrentPlayer().finishedTurn();
         rebuildEntityPositions();
 
         if (this.getCurrentPlayer() == this.playerWhite) {
@@ -172,6 +172,8 @@ Log.d("Game::placeActiveEntity move back to", field.getX() +", "+field.getY());
         } else {
             this.setCurrentPlayer(this.playerWhite);
         }
+
+        getCurrentPlayer().startTurn();
     }
 
     protected void rebuildEntityPositions() {

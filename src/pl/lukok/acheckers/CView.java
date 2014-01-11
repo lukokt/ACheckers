@@ -125,10 +125,41 @@ public class CView extends View {
         c.drawRect(0, 0, getWidth(), getHeight(), paint);
 
         this.render(c, game.getBoard());
-        this.render(c, game.getOpponentPlayer().getEntities());
-        this.render(c, game.getCurrentPlayer().getEntities());
+        this.render(c, game.getOpponentPlayer());
+        this.render(c, game.getCurrentPlayer());
 
         canvas.drawBitmap(bitmap, 0, 0, null);
+    }
+
+    private void render(Canvas c, Player player) {
+
+        int x = fieldSize, y, moveY;
+        paint.setTextSize(26);
+
+
+        if (player.isBlack()) {
+            paint.setColor(draughtsBlack);
+            y = boardRect.top - 5;
+            moveY = boardRect.top-(fieldSize/2);
+        } else {
+            Rect textBounds = new Rect();
+            paint.setColor(draughtsWhite);
+            paint.getTextBounds(player.getName(), 0, 1, textBounds);
+            y = boardRect.bottom + textBounds.height() + 15;
+            moveY = boardRect.bottom+(fieldSize/2);
+        }
+
+        // TODO skorzystac z rysowania encji
+        if (player.hasTurn()) {
+            // point that has current move
+            c.drawCircle(fieldSize/2, moveY, fieldSize/2-5, paint);
+        }
+
+        // player name
+        c.drawText(player.getName(), x, y, paint);
+
+        // player entities
+        render(c, player.getEntities());
     }
 
     private void render(Canvas canvas, LinkedList<Entity> entities) {

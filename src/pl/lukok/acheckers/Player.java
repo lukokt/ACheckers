@@ -13,17 +13,20 @@ public class Player {
     public static final int TYPE_WHITE  = 1;
     public static final int TYPE_BLACK  = 2;
 
-    private boolean finished = false;
+    private boolean turn;
     private int type;
+    private String name;
 
     private Entity activeEntity = null;
 
     private LinkedList<Entity> entities = null;
 
-    public Player(int type) {
+    public Player(int type, String name) {
 
-        this.entities = new LinkedList<Entity>();
         this.setType(type);
+        this.setName(name);
+        this.setTurn(isWhite());
+        this.entities = new LinkedList<Entity>();
     }
 
     public boolean isWhite() {
@@ -106,7 +109,7 @@ public class Player {
         return (this.isWhite() == player.isWhite());
     }
 
-    public void switchTurn() {
+    private void cleanAfterTurn() {
 
         Log.d("SWITCH TURN: ", " !!!!! ");
 
@@ -115,15 +118,39 @@ public class Player {
         }
 
         unselectActiveEntity();
-        finished = false;
     }
 
     public boolean hasFinished() {
-        return finished;
+        return !hasTurn();
     }
 
     public void finishedTurn() {
         Log.d("finish turn: ", "true");
-        finished = true;
+        cleanAfterTurn();
+        setTurn(false);
+    }
+
+    public void startTurn() {
+        setTurn(true);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return this.getName();
+    }
+
+    public boolean hasTurn() {
+        return turn;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
     }
 }
