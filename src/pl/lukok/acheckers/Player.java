@@ -109,7 +109,7 @@ public class Player {
         return (this.isWhite() == player.isWhite());
     }
 
-    private void cleanAfterTurn() {
+    public void cleanAfterTurn() {
 
         Log.d("SWITCH TURN: ", " !!!!! ");
 
@@ -125,8 +125,6 @@ public class Player {
     }
 
     public void finishedTurn() {
-        Log.d("finish turn: ", "true");
-        cleanAfterTurn();
         setTurn(false);
     }
 

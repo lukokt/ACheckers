@@ -2,6 +2,7 @@ package pl.lukok.acheckers;
 
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.util.Log;
 import pl.lukok.acheckers.board.CBoard;
 import pl.lukok.acheckers.board.CBoardUtils;
 import pl.lukok.acheckers.board.CField;
@@ -143,7 +144,7 @@ public class Game {
 
     synchronized public void switchCurrentPlayer() {
 
-        getCurrentPlayer().finishedTurn();
+        getCurrentPlayer().cleanAfterTurn();
         rebuildEntityPositions();
 
         if (getCurrentPlayer() == getPlayerWhite()) {
