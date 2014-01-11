@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fieldWhite">#ffffffca</color>
+    <color name="fieldBlack">#ff542a15</color>
+    <color name="draughtsWhite">#ffd8cb80</color>
+    <color name="draughtsBlack">#ffb07319</color>
+    <color name="background">#3f3f3f</color>
+</resources>
